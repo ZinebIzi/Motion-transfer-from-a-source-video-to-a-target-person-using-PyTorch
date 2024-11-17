@@ -71,7 +71,8 @@ class GenGAN():
         self.dataloader = torch.utils.data.DataLoader(dataset=self.dataset, batch_size=32, shuffle=True)
         if loadFromFile and os.path.isfile(self.filename):
             print("GenGAN: Load=", self.filename, "   Current Working Directory=", os.getcwd())
-            self.netG = torch.load(self.filename)
+            #self.netG = torch.load(self.filename)
+            self.netG.load_state_dict(torch.load(self.filename))
 
 
     def train(self, n_epochs=20, lr=0.0002):
@@ -175,7 +176,7 @@ if __name__ == '__main__':
     if True:    # train or load
         # Train
         gen = GenGAN(targetVideoSke, False)
-        gen.train(500) #5) #200) #4
+        gen.train(200) #5) #200) #4
     else:
         gen = GenGAN(targetVideoSke, loadFromFile=True)    # load from file        
 
